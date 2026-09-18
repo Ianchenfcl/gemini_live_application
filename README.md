@@ -1,8 +1,66 @@
 # Gemini Live Web Application
 
+[English](#english) | [繁體中文](#繁體中文)
+
+---
+
+<a name="english"></a>
+## 🇬🇧 English
+
+A real-time, bi-directional voice and multimodal vision web application built on the Google Gemini Live API. Experience ultra-low latency conversational AI with advanced audio routing and screen capture capabilities, perfect for simultaneous interpretation, video narrations, or live screen analysis.
+
+### ✨ Key Features
+
+* **Ultra-Low Latency Two-Way Audio**
+  Built with WebSockets and the Web Audio API to stream 16kHz PCM audio directly from the browser microphone to Gemini servers, achieving human-like conversational fluidity.
+* **Smart Audio Gateway Separation**
+  Solves the "overlapping translation and source audio" nightmare.
+  * **Local Media Playback**: Upload an MP4/MP3, and the raw audio is routed at 100% volume to Gemini, while local playback is automatically attenuated to 5%.
+  * **Screen Share Audio**: Capture browser tab audio from livestreams or podcasts. Simply mute the tab locally in Chrome, and Gemini will translate in real-time with zero audio interference.
+* **Multimodal Vision**
+  * Supports **Webcam** streaming.
+  * Supports **Screen Share** capture.
+  * Supports **Local Video** frame extraction.
+  * Captures frames at 1fps and streams them as Base64 JPEG, allowing Gemini to "see" your content in real-time.
+* **Anti-Interruption & Connection Keep-Alive**
+  Implements a client-side VAD (Voice Activity Detection). When the mic is muted or silent, it sends "zero-filled PCM packets" to keep the WebSocket connection alive without triggering the server's VAD barge-in.
+* **Bilingual UI**
+  Full support for both English and Traditional Chinese UI, selectable via a toggle button.
+
+### 🚀 Quick Start
+
+#### 1. Setup Environment
+Ensure Python 3.9+ is installed. Create and activate a virtual environment:
+```bash
+python -m venv gemini_venv
+gemini_venv\Scripts\activate  # Windows
+# source gemini_venv/bin/activate  # Mac/Linux
+```
+Install dependencies:
+```bash
+pip install -r requirements.txt
+```
+
+#### 2. Start the Server
+```bash
+python app.py
+```
+Open `http://127.0.0.1:8000` in your browser.
+
+#### 3. Usage
+1. Enter your **Google AI Studio API Key**.
+2. Select your desired **Gemini Model**.
+3. Choose your **Audio Source** (Mic, Screen Share, or Local File).
+4. Click **Connect** and start talking!
+
+---
+
+<a name="繁體中文"></a>
+## 🇹🇼 繁體中文
+
 一個基於 Google Gemini Live API 打造的即時語音、視覺雙向互動網頁應用程式。提供極低延遲的語音對話，並結合了進階的音頻路由（Audio Routing）與畫面擷取技術，讓您可以輕鬆實現同步口譯、影片解說、或是螢幕畫面分析。
 
-## ✨ 核心特色
+### ✨ 核心特色
 
 * **即時雙向語音 (Ultra-Low Latency)**
   基於 WebSocket 與 Web Audio API，將瀏覽器麥克風音訊以原生的 16kHz PCM 格式直接推送至 Gemini 伺服器，實現如真人般順暢的對話體驗。
@@ -17,10 +75,12 @@
   * 每秒定時擷取畫面 (1fps) 轉換為 Base64 JPEG，讓 Gemini 即時「看見」您所分享的內容。
 * **防中斷與連線保活 (Anti-Interruption & Keep-Alive)**
   實作 Client-side VAD (語音活動偵測)。當麥克風靜音或無人說話時，系統會自動發送「全 0 的靜音封包」，完美維持 WebSocket 熱度避免 30 秒閒置斷線，同時不干擾 Gemini 的發言。
+* **中英雙語介面 (Bilingual UI)**
+  支援一鍵切換英文與繁體中文介面。
 
-## 🚀 快速開始
+### 🚀 快速開始
 
-### 1. 安裝環境與依賴套件
+#### 1. 安裝環境與依賴套件
 
 請確保您的電腦已安裝 Python 3.9+。
 建立並啟動虛擬環境：
@@ -38,7 +98,7 @@ pip install -r requirements.txt
 ```
 *(註：主要依賴包含 `fastapi`, `uvicorn`, `websockets`, `google-genai` 等)*
 
-### 2. 啟動伺服器
+#### 2. 啟動伺服器
 
 執行以下指令啟動 FastAPI 後端伺服器：
 
@@ -48,7 +108,7 @@ python app.py
 
 伺服器預設運行於 `http://127.0.0.1:8000`。請打開瀏覽器進入該網址。
 
-### 3. 設定與使用
+#### 3. 設定與使用
 
 1. 在網頁左側輸入您的 **Google AI Studio API Key**。
 2. 選擇您想使用的 **Gemini 模型** (例如：`Gemini 3.8 Live`)。
@@ -58,11 +118,11 @@ python app.py
    * **本機音訊/影片檔案**：上傳本地檔案讓 Gemini 直接看/聽。
 4. 按下 **開始連線** 即可開始體驗！
 
-## 🛠️ 技術架構
+## 🛠️ 技術架構 (Tech Stack)
 
-* **前端**：HTML5, CSS3, Vanilla JavaScript (Web Audio API, WebRTC MediaDevices API)
-* **後端**：Python, FastAPI (提供 WebSocket 中繼伺服器)
-* **AI 服務**：Google GenAI SDK (v1beta) - `LiveConnectConfig`, `LiveConnect`
+* **前端 (Frontend)**：HTML5, CSS3, Vanilla JavaScript (Web Audio API, WebRTC MediaDevices API)
+* **後端 (Backend)**：Python, FastAPI (提供 WebSocket 中繼伺服器)
+* **AI 服務 (AI Service)**：Google GenAI SDK (v1beta) - `LiveConnectConfig`, `LiveConnect`
 
-## 📝 授權條款
+## 📝 授權條款 (License)
 MIT License
