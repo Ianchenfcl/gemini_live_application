@@ -23,9 +23,14 @@
 
     <div class="container">
         <!-- 頁首標題 -->
-        <header>
-            <h1><i class="fa-solid fa-microphone-lines pulse-icon"></i> Gemini Live <span>即時語音對話</span></h1>
-            <p>感受 Gemini 3.1 Live API 的超低延遲雙向語音互動，支援鏡頭與螢幕分享，完美支援語音打斷！</p>
+        <header style="position: relative;">
+            <div style="position: absolute; right: 0; top: 0; display: flex; gap: 10px;">
+                <button id="langToggleBtn" class="primary-btn" style="padding: 5px 12px; font-size: 0.85rem; border-radius: 8px; background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.2);">
+                    <i class="fa-solid fa-globe"></i> <span id="langToggleText">English</span>
+                </button>
+            </div>
+            <h1 data-i18n="appTitle"><i class="fa-solid fa-microphone-lines pulse-icon"></i> Gemini Live <span>即時語音對話</span></h1>
+            <p data-i18n="appDesc">感受 Gemini 3.1 Live API 的超低延遲雙向語音互動，支援鏡頭與螢幕分享，完美支援語音打斷！</p>
         </header>
 
         <div class="main-layout">
@@ -33,20 +38,20 @@
             <section class="left-panel">
                 <!-- API 設定卡片 -->
                 <div class="glass-card config-card">
-                    <h2 class="card-title"><i class="fa-solid fa-key"></i> 認證與設定</h2>
+                    <h2 class="card-title" data-i18n="authConfigTitle"><i class="fa-solid fa-key"></i> 認證與設定</h2>
                     
                     <div class="input-group">
-                        <label for="apiKey"><span class="required">*</span> Google AI Studio API Key</label>
+                        <label for="apiKey" data-i18n="apiKeyLabel"><span class="required">*</span> Google AI Studio API Key</label>
                         <div class="password-wrapper">
-                            <input type="password" id="apiKey" placeholder="請貼上您的 AIzaSy... 金鑰" autocomplete="current-password">
+                            <input type="password" id="apiKey" placeholder="請貼上您的 AIzaSy... 金鑰" data-i18n-placeholder="apiKeyPlaceholder" autocomplete="current-password">
                             <button type="button" id="toggleApiKey" class="icon-btn"><i class="fa-solid fa-eye"></i></button>
                         </div>
-                        <span class="input-tip">金鑰僅存於您瀏覽器 localStorage 中，完全在本地安全端點執行。</span>
+                        <span class="input-tip" data-i18n="apiKeyTip">金鑰僅存於您瀏覽器 localStorage 中，完全在本地安全端點執行。</span>
                     </div>
 
                     <div class="input-grid">
                         <div class="input-group">
-                            <label for="modelSelect">Gemini 模型</label>
+                            <label for="modelSelect" data-i18n="modelLabel">Gemini 模型</label>
                             <select id="modelSelect">
                                 <option value="models/gemini-3.1-flash-live-preview">Gemini 3.1 Live</option>
                                 <option value="models/gemini-3.8-live" selected>Gemini 3.8 Live</option>
@@ -55,30 +60,30 @@
                             </select>
                         </div>
                         <div class="input-group">
-                            <label for="audioSource">音訊來源</label>
+                            <label for="audioSource" data-i18n="audioSourceLabel">音訊來源</label>
                             <select id="audioSource">
-                                <option value="mic" selected>麥克風</option>
-                                <option value="screen">螢幕分享音訊 (需在影像模式開啟螢幕分享)</option>
-                                <option value="file">本機音訊/影片檔案 (無干擾獨立播放)</option>
+                                <option value="mic" selected data-i18n="audioSourceMic">麥克風</option>
+                                <option value="screen" data-i18n="audioSourceScreen">螢幕分享音訊 (需在影像模式開啟螢幕分享)</option>
+                                <option value="file" data-i18n="audioSourceFile">本機音訊/影片檔案 (無干擾獨立播放)</option>
                             </select>
                         </div>
                         <div class="input-group" id="fileInputGroup" style="display: none; grid-column: 1 / -1; margin-top: 8px; padding: 10px; background: rgba(0,0,0,0.2); border-radius: 8px;">
-                            <label for="localMediaFile">選擇本機媒體 (MP3, MP4...)</label>
+                            <label for="localMediaFile" data-i18n="localMediaLabel">選擇本機媒體 (MP3, MP4...)</label>
                             <input type="file" id="localMediaFile" accept="audio/*,video/*" style="width: 100%; font-size: 13px; margin-bottom: 8px;">
                             <video id="localVideoPlayer" controls style="width: 100%; max-height: 250px; background: #000;"></video>
-                            <span class="input-tip" style="margin-top: 5px;">原始音訊會直接送給 Gemini，並在本地以極低音量(5%)播放，不干擾翻譯結果！</span>
+                            <span class="input-tip" style="margin-top: 5px;" data-i18n="localMediaTip">原始音訊會直接送給 Gemini，並在本地以極低音量(5%)播放，不干擾翻譯結果！</span>
                         </div>
                         <div class="input-group">
-                            <label for="voiceMode">影像模式 (畫面)</label>
+                            <label for="voiceMode" data-i18n="voiceModeLabel">影像模式 (畫面)</label>
                             <select id="voiceMode">
-                                <option value="none" selected>無影像 (純語音)</option>
-                                <option value="camera">開啟鏡頭串流</option>
-                                <option value="screen">分享螢幕畫面</option>
-                                <option value="file">擷取本機上傳影片畫面</option>
+                                <option value="none" selected data-i18n="voiceModeNone">無影像 (純語音)</option>
+                                <option value="camera" data-i18n="voiceModeCamera">開啟鏡頭串流</option>
+                                <option value="screen" data-i18n="voiceModeScreen">分享螢幕畫面</option>
+                                <option value="file" data-i18n="voiceModeFile">擷取本機上傳影片畫面</option>
                             </select>
                         </div>
                         <div class="input-group">
-                            <label for="voiceSelect">Gemini 語音</label>
+                            <label for="voiceSelect" data-i18n="voiceSelectLabel">Gemini 語音</label>
                             <select id="voiceSelect">
                                 <option value="Zephyr" selected>Zephyr (優雅女聲 - 推薦)</option>
                                 <option value="Aoede">Aoede (清晰女聲)</option>
@@ -94,7 +99,7 @@
                     <div style="margin-top: 15px; padding: 12px; background: rgba(0,0,0,0.2); border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);">
                         <h3 style="font-size: 14px; margin-bottom: 10px; color: var(--color-teal); display: flex; align-items: center; gap: 8px; cursor: pointer;">
                             <input type="checkbox" id="enableTranslation" style="width: 16px; height: 16px; accent-color: var(--color-teal);">
-                            <label for="enableTranslation" style="cursor: pointer; margin: 0;"><i class="fa-solid fa-language"></i> 啟用即時翻譯模式 (支援所有模型)</label>
+                            <label for="enableTranslation" style="cursor: pointer; margin: 0;" data-i18n="enableTranslationLabel"><i class="fa-solid fa-language"></i> 啟用即時翻譯模式 (支援所有模型)</label>
                         </h3>
                         <div id="translateConfigArea" class="input-grid" style="display: none; margin-top: 10px;">
                             <div class="input-group">
@@ -110,7 +115,7 @@
                                 </select>
                             </div>
                             <div class="input-group">
-                                <label for="targetLanguage">目標語言 (翻譯成)</label>
+                                <label for="targetLanguage" data-i18n="targetLangLabel">目標語言 (翻譯成)</label>
                                 <select id="targetLanguage">
                                     <option value="en" selected>英文 (en)</option>
                                     <option value="zh-TW">繁體中文 (zh-TW)</option>
@@ -123,7 +128,7 @@
                             <div class="input-group" style="grid-column: 1 / -1; margin-top: 5px;">
                                 <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; color: var(--text-color); font-weight: normal; font-size: 13px;">
                                     <input type="checkbox" id="disableInterruption" checked style="width: 16px; height: 16px; accent-color: var(--color-teal);">
-                                    <span>說話時暫停收音 (防止翻譯被自己或環境音打斷)</span>
+                                    <span data-i18n="disableInterruptionLabel">說話時暫停收音 (防止翻譯被自己或環境音打斷)</span>
                                 </label>
                             </div>
                         </div>
@@ -132,7 +137,7 @@
 
                 <!-- 狀態與核心控制卡片 -->
                 <div class="glass-card control-card">
-                    <h2 class="card-title"><i class="fa-solid fa-sliders"></i> 通訊控制台</h2>
+                    <h2 class="card-title" data-i18n="controlPanelTitle"><i class="fa-solid fa-sliders"></i> 通訊控制台</h2>
                     
                     <!-- 狀態顯示器 -->
                     <div class="status-indicator-wrapper">
@@ -244,7 +249,8 @@
         <p>Built with <i class="fa-solid fa-heart" style="color: #ff4a5a;"></i> using Google Gemini Live API | Antigravity AI Partner</p>
     </footer>
 
-    <!-- 載入自訂 JS 程式碼 -->
+    <!-- 載入主程式與多國語言 -->
+    <script src="/static/i18n.js"></script>
     <script src="/static/main.js?v=catchbot_sync_2"></script>
 </body>
 </html>
