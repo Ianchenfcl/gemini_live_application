@@ -45,7 +45,7 @@ pip install -r requirements.txt
 ```bash
 python app.py
 ```
-Open `http://127.0.0.1:8000` in your browser.
+Open `http://127.0.0.1:8088` in your browser.
 
 #### 3. Usage
 1. Enter your **Google AI Studio API Key**.
@@ -106,7 +106,7 @@ pip install -r requirements.txt
 python app.py
 ```
 
-伺服器預設運行於 `http://127.0.0.1:8000`。請打開瀏覽器進入該網址。
+伺服器預設運行於 `http://127.0.0.1:8088`。請打開瀏覽器進入該網址。
 
 #### 3. 設定與使用
 
